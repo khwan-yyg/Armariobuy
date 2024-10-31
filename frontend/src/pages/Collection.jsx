@@ -5,15 +5,16 @@ import Title from "../components/Title";
 import ProductItem from "../components/ProductItem";
 
 const Collection = () => {
-  const { products } = useContext(ShopContext);
+  const { products, search, showSearch } = useContext(ShopContext);
   const [showFilter, setShowFilter] = useState(false);
   const [filterProducts, setFilterProducts] = useState([]);
-  const [categogy, setCategory] = useState([]);
-  const [subCategogy, setSubCategory] = useState([]);
+  const [category, setCategory] = useState([]);
+  const [subcategory, setSubCategory] = useState([]);
+  const [sortType, setSortType] = useState("relavent");
 
   const toggleCategory = (e) => {
-    // check repeatedly value if not will add the new in categogy array
-    if (categogy.includes(e.target.value)) {
+    // check repeatedly value if not will add the new in category array
+    if (category.includes(e.target.value)) {
       setCategory((prev) => prev.filter((item) => item !== e.target.value));
     } else {
       setCategory((prev) => [...prev, e.target.value]);
@@ -21,7 +22,7 @@ const Collection = () => {
   };
 
   const toggleSubCategory = (e) => {
-    if (subCategogy.includes(e.target.value)) {
+    if (subcategory.includes(e.target.value)) {
       setSubCategory((prev) => prev.filter((item) => item !== e.target.value));
     } else {
       setSubCategory((prev) => [...prev, e.target.value]);
@@ -29,24 +30,60 @@ const Collection = () => {
   };
 
   const applyFilter = () => {
+    //copy all products
     let productsCopy = products.slice();
-    //conditon that select value
-    if (categogy.length > 0) {
-      //filter categogy same as products
+
+    if (showSearch && search) {
       productsCopy = productsCopy.filter((item) =>
-        categogy.includes(item.categogy)
+        item.name.toLowerCase().includes(search.toLowerCase())
       );
     }
+
+    //conditon that select value
+    if (category.length > 0) {
+      //filter category same as products
+      productsCopy = productsCopy.filter((item) =>
+        category.includes(item.category)
+      );
+    }
+
+    if (subcategory.length > 0) {
+      //filter subcategory same as products
+      productsCopy = productsCopy.filter((item) =>
+        subcategory.includes(item.subCategory)
+      );
+    }
+    //save value
+    setFilterProducts(productsCopy);
   };
 
-  useEffect(() => {
-    setFilterProducts(products);
-  }, []);
+  const sortProduct = () => {
+    //copy all products and filtered product
+    let fpCopy = filterProducts.slice();
+
+    switch (sortType) {
+      case "low-hight":
+        setFilterProducts(fpCopy.sort((a, b) => a.price - b.price));
+        break;
+
+      case "hight-low":
+        setFilterProducts(fpCopy.sort((a, b) => b.price - a.price));
+        break;
+
+      default:
+        applyFilter();
+        break;
+    }
+  };
 
   // when have update in cate and sub will executed applyFilter
   useEffect(() => {
     applyFilter();
-  }, [categogy, subCategogy]);
+  }, [category, subcategory, search, showSearch]);
+
+  useEffect(() => {
+    sortProduct();
+  }, [sortType]);
 
   return (
     <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-36 border-t ">
@@ -94,7 +131,7 @@ const Collection = () => {
               <input
                 className="w-3"
                 type="checkbox"
-                value={"Kid"}
+                value={"Kids"}
                 onChange={toggleCategory}
               />
               Kid
@@ -147,7 +184,10 @@ const Collection = () => {
           <Title text1={"ALL"} text2={"COLLECTIONS"} />
 
           {/* Product Sort */}
-          <select className="border-2 border-gray-300 text-sm px-2">
+          <select
+            onChange={(e) => setSortType(e.target.value)}
+            className="border-2 border-gray-300 text-sm px-2"
+          >
             <option value="relavent">Sort by: Relavent</option>
             <option value="low-hight">Sort by: Low to Hight</option>
             <option value="hight-low">Sort by: Hight to Low</option>
@@ -159,7 +199,7 @@ const Collection = () => {
           {filterProducts.map((item, index) => (
             <ProductItem
               key={index}
-              id={item.id}
+              id={item._id}
               image={item.image}
               name={item.name}
               price={item.price}
