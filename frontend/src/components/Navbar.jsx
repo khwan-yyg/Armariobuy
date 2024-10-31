@@ -1,14 +1,19 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { assets } from "../assets/assets";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
   const { setShowSearch } = useContext(ShopContext);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
-    <div className="flex items-center justify-between py-5 font-medium bg-white fixed w-full top-0 left-0 px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] z-50 shadow-md">
+    <div className="flex items-center justify-between py-5 font-medium sticky w-full top-0 left-0 z-50 border-b bg-white border-gray-400">
       <Link to="/">
         <img src={assets.logo} className="w-36" alt="" />
       </Link>
@@ -33,12 +38,14 @@ const Navbar = () => {
       </ul>
 
       <div className="flex items-center gap-6">
-        <img
-          onClick={() => setShowSearch(true)}
-          src={assets.search_icon}
-          className="w-5 cursor-pointer"
-          alt=""
-        />
+        <Link to="/collection">
+          <img
+            onClick={() => setShowSearch(true)}
+            src={assets.search_icon}
+            className="w-5 cursor-pointer"
+            alt=""
+          />
+        </Link>
 
         <div className="group relative">
           <img
