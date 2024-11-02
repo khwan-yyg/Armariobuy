@@ -8,9 +8,10 @@ const Product = () => {
   //get productId from url in app.jsx
   const { productId } = useParams();
 
-  const { products, currency } = useContext(ShopContext);
+  const { products, currency, addToCart } = useContext(ShopContext);
 
   const [productData, setProductData] = useState({
+    _id: "",
     image: [],
     name: "",
     price: 0,
@@ -99,7 +100,10 @@ const Product = () => {
               ))}
             </div>
           </div>
-          <button className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700">
+          <button
+            onClick={() => addToCart(productData._id, size)}
+            className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700"
+          >
             ADD TO CART
           </button>
           <hr className="mt-8 sm:w-4/5" />
@@ -119,15 +123,19 @@ const Product = () => {
         </div>
         <div className="flex flex-col gap-4 border px-6 py-6 text-sm text-gray-500">
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi nam
-            totam repellendus inventore quis vel modi consequatur facere,
-            architecto est sint nostrum in non veritatis distinctio! A, earum?
-            Quod, quisquam!
+            An e-commerce website is an online platform that facilitates the
+            buying and selling of products or services over the internet. It
+            serves as a virtual marketplace where businesses and individuals can
+            showcase their products, interact with customers, and conduct
+            transactions without the need for a physical presence. E-commerce
+            websites have gained immense popularity due to their convenience,
+            accessibility, and the global reach they offer.
           </p>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius
-            obcaecati dolores aperiam qui dolore, ea eum necessitatibus neque
-            voluptas? Rem nostrum .
+            E-commerce websites typically display products or services along
+            with detailed descriptions, images, prices, and any available
+            variations (e.g., sizes, colors). Each product usually has its own
+            dedicated page with relevant information.
           </p>
         </div>
       </div>
