@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 import { assets } from "../assets/assets";
+import RelatedProducts from "../components/RelatedProducts";
 
 const Product = () => {
   //get productId from url in app.jsx
@@ -15,6 +16,8 @@ const Product = () => {
     price: 0,
     description: "",
     sizes: [],
+    category: "",
+    subCategory: "",
   });
 
   const [image, setImage] = useState("");
@@ -107,6 +110,33 @@ const Product = () => {
           </div>
         </div>
       </div>
+
+      {/* --------- Description & Review Section --------- */}
+      <div className="mt-20">
+        <div className="flex">
+          <b className="border px-5 py-3 text-sm">Description</b>
+          <p className="border px-5 py-3 text-sm">Reviews (122)</p>
+        </div>
+        <div className="flex flex-col gap-4 border px-6 py-6 text-sm text-gray-500">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi nam
+            totam repellendus inventore quis vel modi consequatur facere,
+            architecto est sint nostrum in non veritatis distinctio! A, earum?
+            Quod, quisquam!
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius
+            obcaecati dolores aperiam qui dolore, ea eum necessitatibus neque
+            voluptas? Rem nostrum .
+          </p>
+        </div>
+      </div>
+
+      {/* --------- display relate products ---------  */}
+      <RelatedProducts
+        category={productData.category}
+        subCategory={productData.subCategory}
+      />
     </div>
   ) : (
     <div className="opacity-0"></div>
