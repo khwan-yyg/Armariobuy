@@ -79,7 +79,7 @@ const Collection = () => {
   // when have update in cate and sub will executed applyFilter
   useEffect(() => {
     applyFilter();
-  }, [category, subcategory, search, showSearch]);
+  }, [category, subcategory, search, showSearch, products]);
 
   useEffect(() => {
     sortProduct();
