@@ -78,7 +78,7 @@ const Add = ({ token }) => {
           {/* Create temporary imageURL preview files before upload */}
           <label htmlFor="image1">
             <img
-              className="w-20"
+              className="w-20 cursor-pointer"
               src={!image1 ? assets.upload_area : URL.createObjectURL(image1)}
               alt=""
             />
@@ -91,7 +91,7 @@ const Add = ({ token }) => {
           </label>
           <label htmlFor="image2">
             <img
-              className="w-20"
+              className="w-20 cursor-pointer"
               src={!image2 ? assets.upload_area : URL.createObjectURL(image2)}
               alt=""
             />
@@ -104,7 +104,7 @@ const Add = ({ token }) => {
           </label>
           <label htmlFor="image3">
             <img
-              className="w-20"
+              className="w-20 cursor-pointer"
               src={!image3 ? assets.upload_area : URL.createObjectURL(image3)}
               alt=""
             />
@@ -117,7 +117,7 @@ const Add = ({ token }) => {
           </label>
           <label htmlFor="image4">
             <img
-              className="w-20"
+              className="w-20 cursor-pointer"
               src={!image4 ? assets.upload_area : URL.createObjectURL(image4)}
               alt=""
             />
@@ -196,7 +196,8 @@ const Add = ({ token }) => {
       <div>
         <p className="mb-2">Product Sizes</p>
         <div className="flex gap-3">
-          {/* codition if prev is "S" will filter out from array */}
+          {/* condition if prev is "S" will filter out from array */}
+          {/* design to be toggle btn */}
           <div
             onClick={() =>
               setSizes((prev) =>
