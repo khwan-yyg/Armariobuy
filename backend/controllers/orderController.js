@@ -19,7 +19,7 @@ const placeOrder = async (req, res) => {
     const newOrder = new orderModel(orderData);
     await newOrder.save();
 
-    await userModel.findByIdAndUpdate(userId, { cardData: {} });
+    await userModel.findByIdAndUpdate(userId, { cartData: {} });
 
     res.json({ success: true, message: "Order Placed" });
   } catch (error) {
@@ -38,7 +38,17 @@ const placeOrderRazorpay = async (req, res) => {};
 const allOrders = async (req, res) => {};
 
 // User Order Data for Frontend
-const userOrders = async (req, res) => {};
+const userOrders = async (req, res) => {
+  try {
+    const { userId } = req.body;
+
+    const orders = await orderModel.find({ userId });
+    res.json({ success: true, orders });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
 
 // Update order status for Admin Panel
 const updateStatus = async (req, res) => {};

@@ -3,6 +3,8 @@ import Title from "../components/Title";
 import CartTotal from "../components/CartTotal";
 import { assets } from "../assets/assets";
 import { ShopContext } from "../context/ShopContext";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const PlaceOrder = () => {
   //set CASH ON DELIVERY on default
@@ -22,7 +24,6 @@ const PlaceOrder = () => {
     firstName: "",
     lastName: "",
     email: "",
-    password: "",
     street: "",
     city: "",
     state: "",
@@ -58,8 +59,39 @@ const PlaceOrder = () => {
           }
         }
       }
-      console.log(orderItems);
-    } catch (error) {}
+
+      let orderData = {
+        address: formData,
+        items: orderItems,
+        amount: getCartAmount() + delivery_fee,
+      };
+
+      switch (method) {
+        //  API calls for COD
+        case "cod":
+          const response = await axios.post(
+            backendUrl + "/api/order/place",
+            orderData,
+            { headers: { token } }
+          );
+
+          if (response.data.success) {
+            // when order place clear cart
+            setCartItems({});
+            navigate("/orders");
+            toast.success("Order Placed!");
+          } else {
+            toast.error(response.data.message);
+          }
+          break;
+
+        default:
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
   };
 
   return (
