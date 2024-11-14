@@ -10,6 +10,8 @@ const Cart = () => {
 
   const [cartData, setCartData] = useState([]);
 
+  const [isCartEmpty, setIsCartEmpty] = useState(true);
+
   useEffect(() => {
     if (products.length > 0) {
       const tempData = [];
@@ -28,6 +30,9 @@ const Cart = () => {
         }
       }
       setCartData(tempData);
+      setIsCartEmpty(tempData.length === 0);
+    } else {
+      setIsCartEmpty(true);
     }
   }, [cartItems, products]);
 
@@ -107,9 +112,12 @@ const Cart = () => {
           <div className="w-full text-end">
             <button
               onClick={() => navigate("/place-order")}
-              className="bg-black text-white text-sm my-8 px-8 py-3"
+              className={`bg-black text-white text-sm my-8 px-8 py-3 ${
+                isCartEmpty ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              disabled={isCartEmpty}
             >
-              PROCEED TO CHECHOUT
+              {`${isCartEmpty ? "CART IS EMPTY" : "PROCEED TO CHECKOUT"}`}
             </button>
           </div>
         </div>
