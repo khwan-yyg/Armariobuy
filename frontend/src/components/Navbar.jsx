@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { assets } from "../assets/assets";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
+import { adminUrl } from "../App";
 
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
@@ -48,6 +49,13 @@ const Navbar = () => {
         <NavLink to="/contact" className="flex flex-col items-center gap-1">
           <p>CONTACT</p>
           <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
+        </NavLink>
+        <NavLink
+          to={adminUrl}
+          target="_blank"
+          className="border px-5 text-xs py-1 rounded-full -mt-2"
+        >
+          <p className="mt-1">Admin Panel</p>
         </NavLink>
       </ul>
 
