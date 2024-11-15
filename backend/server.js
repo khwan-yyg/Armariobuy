@@ -18,7 +18,7 @@ connectCloudinary();
 app.use(express.json());
 app.use(cors());
 
-//api endpoints
+// api endpoints
 app.use("/api/user", userRouter);
 app.use("/api/product", productRouter);
 app.use("/api/cart", cartRouter);
@@ -28,4 +28,5 @@ app.get("/", (req, res) => {
   res.send("API Working");
 });
 
+// port
 app.listen(port, () => console.log("Server started on PORT : " + port));
