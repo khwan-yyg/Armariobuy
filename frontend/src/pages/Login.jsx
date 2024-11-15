@@ -8,9 +8,9 @@ const Login = () => {
   const [currentState, setCurrentState] = useState("Login");
   const { token, setToken, navigate, backendUrl } = useContext(ShopContext);
 
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
+  const [name, setName] = useState("User");
+  const [password, setPassword] = useState("12345678");
+  const [email, setEmail] = useState("user@hotmail.com");
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();

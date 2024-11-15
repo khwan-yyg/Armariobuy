@@ -53,7 +53,7 @@ const Orders = ({ token }) => {
 
   return (
     <div>
-      <h3>Order Page</h3>
+      <h1 className="mb-6 text-2xl">Order Page</h1>
       <div>
         {orders.map((order, index) => (
           <div

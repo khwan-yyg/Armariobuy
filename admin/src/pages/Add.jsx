@@ -73,7 +73,8 @@ const Add = ({ token }) => {
       className="flex flex-col w-full items-start gap-3"
     >
       <div>
-        <p className="mb-2">Upload Image</p>
+        <h1 className="text-2xl">Add Items</h1>
+        <p className="mt-6 mb-2">Upload Image</p>
         <div className="flex gap-2">
           {/* Create temporary imageURL preview files before upload */}
           <label htmlFor="image1">

@@ -8,7 +8,7 @@ const Product = () => {
   //get productId from url in app.jsx
   const { productId } = useParams();
 
-  const { products, currency, addToCart } = useContext(ShopContext);
+  const { products, currency, addToCart, token } = useContext(ShopContext);
 
   const [productData, setProductData] = useState({
     _id: "",
@@ -49,7 +49,7 @@ const Product = () => {
       <div className="flex gap-12 sm:gap-12 flex-col sm:flex-row">
         {/* --------- Product Images ---------  */}
         <div className="flex-1 flex flex-col-reverse gap-3 sm:flex-row">
-          <div className="flex sm:flex-col overflow-x-auto sm:overflow-y-scroll justify-between sm:justify-normal -inset-0 sm:w-[18.7%] w-full">
+          <div className="flex sm:flex-col overflow-x-auto sm:overflow-y-hidden justify-between sm:justify-normal -inset-0 sm:w-[18.7%] w-full">
             {productData.image.map((item, index) => (
               <img
                 onClick={() => setImage(item)}
@@ -102,11 +102,16 @@ const Product = () => {
           </div>
           <button
             onClick={() => addToCart(productData._id, size)}
-            className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700"
+            className={`bg-black text-white px-8 py-3 text-sm active:bg-gray-700" ${
+              token ? "" : "opacity-50 cursor-not-allowed"
+            }`}
           >
             ADD TO CART
           </button>
-          <hr className="mt-8 sm:w-4/5" />
+          <p className="mt-4 text-sm text-red-500 italic">
+            please login before add to cart <br /> for active payment
+          </p>
+          <hr className="mt-4 sm:w-4/5" />
           <div className="text-sm text-gray-500 mt-5 flex flex-col gap-1">
             <p>100% Original product.</p>
             <p>Cash on delivery is available on this product.</p>
